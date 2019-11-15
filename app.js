@@ -96,7 +96,7 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person using the name they entered
+  
   return foundPerson[0];
 }
 
@@ -139,8 +139,8 @@ function searchByEyeColor(people){
 }
 
 function searchByGender(people){
-  let traitQuestion = promptFor("Do you want to search for Gender? 'yes' 'no' ", yesNo).toLowerCase(); 
-      
+  let traitQuestion = promptFor("Do you want to search for Gender? 'yes' 'no' ", yesNo).toLowerCase()
+
       switch(traitQuestion){
         case 'yes':       
             alert("Okay");    
@@ -204,7 +204,7 @@ function searchByWeight(people){
              sameWeightPeople += everyOneWithSameWeight[counter].firstName + " " + everyOneWithSameWeight[counter].lastName + "\n";
           }
       alert(sameWeightPeople);
-      searchByHeight(sameWeightPeople);
+      // searchByHeight(sameWeightPeople);
 }
 function searchByHeight(people){
   let traitQuestion = promptFor("Do you want to search for Height? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -236,7 +236,7 @@ let everyOneWithSameHeight = people.filter(function(person){
        sameHeightPeople += everyOneWithSameHeight[counter].firstName + " " + everyOneWithSameHeight[counter].lastName + "\n";
     }
   alert(sameHeightPeople);
-  searchByOccupation(sameHeightPeople);
+  // searchByOccupation(sameHeightPeople);
 }
 function searchByOccupation(people){
   let traitQuestion = promptFor("Do you want to search for Occupation? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -246,20 +246,35 @@ function searchByOccupation(people){
         alert("Okay");    
       break;
         case 'no':
-          
+          let traitQuestionInseption = promptFor("Do you want to search for a specific person from the list you made 'yes' 'no' (no will reset)  ", yesNo).toLowerCase(); 
+  
+            switch(traitQuestionInseption){
+                case 'yes':       
+                  alert("Okay");
+                  searchByName(people)
+                break;
+                case 'no':
+                  alert("Okay Restarting");
+                  app();
+                break;
+                default:
+                  alert("Invalid input try again.");         
+                break;
+            }
       break;
-      default:
-        alert("Invalid input try again.");
 
+        default:
+        alert("Invalid input try again.");
+    }
   let occupation = promptFor("What Occupation are you looking for?", chars);
   let everyOneWithOccupation = people.filter(function(person){
     if(person.occupation == occupation){
       return true;
-   }
+   } 
     else{
       return false;
     }
-    })
+    });
   let peopleWithSameJob = "";
   for (let counter = 0; counter < everyOneWithOccupation.length; counter++) {
       peopleWithSameJob += everyOneWithOccupation[counter].firstName + " " + everyOneWithOccupation[counter].lastName + "\n";
@@ -270,7 +285,7 @@ function searchByOccupation(people){
     switch(traitQuestionNum2){
     case 'yes':       
         alert("Okay");
-            
+          
       break;
         case 'no':
           alert("Okay Restarting");
@@ -310,8 +325,12 @@ function displayPerson(person){
 }
 
 // function that prompts and validates user input
+<<<<<<< HEAD
 function promptFor(question, valid){
   
+=======
+function promptFor(question, valid){``
+>>>>>>> e895ea50c8ca309023459f7a337ba96faa5e16c9
   do{
      var response = prompt(question).trim();
   } while(!response || !valid(response));
