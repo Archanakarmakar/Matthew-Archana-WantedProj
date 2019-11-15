@@ -44,14 +44,14 @@ function mainMenu(person, people){
     break;
     case "family":
      let everyoneInFamily = people.filter(function(el){
-      if(el.id === person.currentSpouse || el.id === person.parents){
+      if(el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1]){
         let peepsInFamily = "";
         peepsInFamily += el[0] + " " +el[1] +"\n" ;
         alert(peepsInFamily);
-
+          return true;
        }
        else{
-        false;
+         return false;
        }
 
     })
@@ -68,6 +68,7 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
+
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?(Make sure to Capitalize)", chars);
