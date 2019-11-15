@@ -54,11 +54,8 @@ function mainMenu(person, people){
       for (let counter = 0; counter < everyoneInFamily.length; counter++) {
            bigOleFamily += everyoneInFamily[counter].firstName + " " + everyoneInFamily[counter].lastName + "\n";
         }
-        alert(bigOleFamily);
-<<<<<<< HEAD
-
-=======
->>>>>>> 2547dd3669f90133623c83f203fc885f2c9aecc7
+       alert(bigOleFamily);
+    
     break;
     case "descendants":
     let allDecendents = people.filter(function(el){
@@ -154,9 +151,6 @@ function searchByGender(people){
           break;
           default:
             alert("Invalid input try again.");
-            
-        
-       
           break;
       }
 
@@ -176,7 +170,7 @@ function searchByGender(people){
           }
       alert(sameGenderPeople);
       searchByWeight(sameGenderPeople); 
-}
+   }
 
 function searchByWeight(people){
   let traitQuestion = promptFor("Do you want to search for Weight? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -192,9 +186,7 @@ function searchByWeight(people){
           default:
             alert("Invalid input try again.");
             
-        
-       
-          break;
+           break;
       }
 
     let weight = promptFor("What weight are you looking for?", chars);
@@ -227,10 +219,7 @@ function searchByHeight(people){
       break;
       default:
         alert("Invalid input try again.");
-        
-    
-   
-      break;
+       break;
     }
 
 let height = promptFor("What height are you looking for?", chars);
@@ -288,17 +277,13 @@ function searchByOccupation(people){
           app();
       break;
       default:
-        alert("Invalid input try again.");
+          alert("Invalid input try again.");
         
-    
-   
       break;
     }
-    
-
-
-  searchByName(peopleWithSameJob);
-}
+    searchByName(peopleWithSameJob);
+  }
+}  
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -326,10 +311,9 @@ function displayPerson(person){
 
 // function that prompts and validates user input
 function promptFor(question, valid){
-  let response = prompt(question).trim();
+  
   do{
-    
-
+     var response = prompt(question).trim();
   } while(!response || !valid(response));
   return response;
 }
