@@ -43,7 +43,18 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
+     let everyoneInFamily = people.filter(function(el){
+      if(el.id === person.currentSpouse || el.id === person.parents){
+        let peepsInFamily = "";
+        peepsInFamily += el[0] + " " +el[1] +"\n" ;
+        alert(peepsInFamily);
+
+       }
+       else{
+        false;
+       }
+
+    })
     break;
     case "descendants":
     // TODO: get person's descendants
