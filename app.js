@@ -12,8 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
-
+      searchByEyeColor(people)
       break;
       default:
       alert("Invalid input try again.");
@@ -45,7 +44,7 @@ function mainMenu(person, people){
     case "family":
       let everyoneInFamily = people.filter(function(el){
         if(el.id === person.currentSpouse || el.id === person.parents[0] ||el.id === person.parents[1]){
-          return true
+          return true;
           }
           else{
           return false;
@@ -53,12 +52,24 @@ function mainMenu(person, people){
       })
       let bigOleFamily = "";
       for (let counter = 0; counter < everyoneInFamily.length; counter++) {
-           bigOleFamily += everyoneInFamily[counter].firstName + " " + everyoneInFamily[counter].lastName + "\n"
+           bigOleFamily += everyoneInFamily[counter].firstName + " " + everyoneInFamily[counter].lastName + "\n";
         }
-        alert(bigOleFamily)
+        alert(bigOleFamily);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    let allDecendents = people.filter(function(el){
+        if(person.id === el.parents[0] || el.id === person.parents[1] ){
+          return true;
+          }
+          else{
+          return false;
+          }
+        }) 
+           let allOfPersonsDecendants = "";
+      for (let counter = 0; counter < allDecendents.length; counter++) {
+           allOfPersonsDecendants += allDecendents[counter].firstName + " " + allDecendents[counter].lastName + "\n";
+        }
+        alert(allOfPersonsDecendants);
     break;
     case "restart":
     app(people); // restart
@@ -87,39 +98,202 @@ function searchByName(people){
   return foundPerson[0];
 }
 
-function traitBuilder(trait){
-  let traitArray = [];
-  let fistTrait = promptFor("What trait do you want to look for? 'Gender' or 'EyeColor' ", chars);
-  traitArray += traitArray.push(fistTrait);
-  let traitQuestion = promptFor("Do you want to search for another trait? 'yes' 'no' ", chars);
-  traitQuestion = yesNo(traitQuestion);  
-    switch(searchType){
-      case 'yes':
-          if (traitArray.length < 5 ) {
-            return traitBuilder(traitArray);  
-          }   
-          else{
-            alert("You already have all the taits you can search");
-            // send to trait search
-          }
+function searchByEyeColor(people){
+   let traitQuestion = promptFor("Do you want to search for eye color? 'yes' 'no' ", yesNo).toLowerCase(); 
+    
+    switch(traitQuestion){
+      case 'yes':       
+          alert("Okay");    
         break;
           case 'no':
             alert("Okay");
-            // send to trait search
+            searchByGender(people);
         break;
         default:
           alert("Invalid input try again.");
-          traitBuilder();
+          
       
      
         break;
+    }
 
+  let eyeTrait = promptFor("What eye color are you looking for?", chars);
+  let everyOneWithTraitEye = people.filter(function(person){
+    if(person.eyeColor === eyeTrait){
+      return true;
+    }
+    else{
+
+      return false;
+    }
+  })
+    let sameEyedPeople = "";
+      for (let counter = 0; counter < everyOneWithTraitEye.length; counter++) {
+           sameEyedPeople += everyOneWithTraitEye[counter].firstName + " " + everyOneWithTraitEye[counter].lastName + "\n";
+        }
+    alert(sameEyedPeople);
+    searchByGender(sameEyedPeople); 
+  
+}
+
+function searchByGender(people){
+  let traitQuestion = promptFor("Do you want to search for Gender? 'yes' 'no' ", yesNo).toLowerCase(); 
+      
+      switch(traitQuestion){
+        case 'yes':       
+            alert("Okay");    
+          break;
+            case 'no':
+              alert("Okay");
+              searchByWeight(people);
+          break;
+          default:
+            alert("Invalid input try again.");
+            
+        
+       
+          break;
       }
-}
-function traitChecker(arryOfTraits){
 
+    let gender = promptFor("What gender are you looking for?", chars).toLowerCase();
+    let everyOneWithGender = people.filter(function(person){
+      if(person.gender === gender){
+        return true;
+      }
+      else{
+
+        return false;
+      }
+    })
+      let sameGenderPeople = "";
+        for (let counter = 0; counter < everyOneWithGender.length; counter++) {
+             sameGenderPeople += everyOneWithGender[counter].firstName + " " + everyOneWithGender[counter].lastName + "\n";
+          }
+      alert(sameGenderPeople);
+      searchByWeight(sameGenderPeople); 
 }
 
+function searchByWeight(people){
+  let traitQuestion = promptFor("Do you want to search for Weight? 'yes' 'no' ", yesNo).toLowerCase(); 
+      
+      switch(traitQuestion){
+        case 'yes':       
+            alert("Okay");    
+          break;
+            case 'no':
+              alert("Okay");
+              searchByHeight(people);
+          break;
+          default:
+            alert("Invalid input try again.");
+            
+        
+       
+          break;
+      }
+
+    let weight = promptFor("What weight are you looking for?", chars);
+    let everyOneWithSameWeight = people.filter(function(person){
+      if(person.weight == weight){
+        return true;
+      }
+      else{
+
+        return false;
+      }
+    })
+      let sameWeightPeople = "";
+        for (let counter = 0; counter < everyOneWithSameWeight.length; counter++) {
+             sameWeightPeople += everyOneWithSameWeight[counter].firstName + " " + everyOneWithSameWeight[counter].lastName + "\n";
+          }
+      alert(sameWeightPeople);
+      searchByHeight(sameWeightPeople);
+}
+function searchByHeight(people){
+  let traitQuestion = promptFor("Do you want to search for Height? 'yes' 'no' ", yesNo).toLowerCase(); 
+  
+    switch(traitQuestion){
+    case 'yes':       
+        alert("Okay");    
+      break;
+        case 'no':
+          alert("Okay");
+          searchByOccupation(people);
+      break;
+      default:
+        alert("Invalid input try again.");
+        
+    
+   
+      break;
+    }
+
+let height = promptFor("What height are you looking for?", chars);
+let everyOneWithSameHeight = people.filter(function(person){
+  if(person.height == height){
+    return true;
+  }
+  else{
+    return false;
+    }
+  })
+  let sameHeightPeople = "";
+  for (let counter = 0; counter < everyOneWithSameHeight.length; counter++) {
+       sameHeightPeople += everyOneWithSameHeight[counter].firstName + " " + everyOneWithSameHeight[counter].lastName + "\n";
+    }
+  alert(sameHeightPeople);
+  searchByOccupation(sameHeightPeople);
+}
+function searchByOccupation(people){
+  let traitQuestion = promptFor("Do you want to search for Occupation? 'yes' 'no' ", yesNo).toLowerCase(); 
+  
+    switch(traitQuestion){
+    case 'yes':       
+        alert("Okay");    
+      break;
+        case 'no':
+          
+      break;
+      default:
+        alert("Invalid input try again.");
+
+  let occupation = promptFor("What Occupation are you looking for?", chars);
+  let everyOneWithOccupation = people.filter(function(person){
+    if(person.occupation == occupation){
+      return true;
+   }
+    else{
+      return false;
+    }
+    })
+  let peopleWithSameJob = "";
+  for (let counter = 0; counter < everyOneWithOccupation.length; counter++) {
+      peopleWithSameJob += everyOneWithOccupation[counter].firstName + " " + everyOneWithOccupation[counter].lastName + "\n";
+    }
+  alert(peopleWithSameJob);
+  let traitQuestionNum2 = promptFor("Do you want to search for one of these people by name? 'yes' 'no' ('no' will restart) ", yesNo).toLowerCase(); 
+  
+    switch(traitQuestionNum2){
+    case 'yes':       
+        alert("Okay");
+            
+      break;
+        case 'no':
+          alert("Okay Restarting");
+          app();
+      break;
+      default:
+        alert("Invalid input try again.");
+        
+    
+   
+      break;
+    }
+    
+
+
+  searchByName(peopleWithSameJob);
+}
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
