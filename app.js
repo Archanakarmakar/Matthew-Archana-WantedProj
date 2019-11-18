@@ -12,8 +12,19 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchByEyeColor(people)
+    let searchdob = prompt("Do you want to search by trait either ..Enter 'DOB' or 'trait' or 'restart' ");
+     switch(searchdob){
+        case 'DOB':
+          searchByDob(people);
+          break;
+        case 'Trait':
+          searchByEyeColor(people);
+           break;
+         }  
       break;
+        case "restart":
+          app(people); // restart
+        break;
       default:
       alert("Invalid input try again.");
       app();
@@ -43,10 +54,11 @@ function mainMenu(person, people){
     break;
     case "family":
       let everyoneInFamily = people.filter(function(el){
-        if(el.id === person.currentSpouse || el.id === person.parents[0] ||el.id === person.parents[1]){
-          return true;
-          }
-          else{
+        if(el.id === person.currentSpouse || person.parents.length == 0 || el.id === person.parents[0] ||el.id === person.parents[1] ||el.parents[0] === person.parents[0] ||el.parents[1] === person.parents[1]){
+        return true;
+        }    
+            
+        else{
           return false;
           } 
       })
@@ -298,7 +310,9 @@ function searchByOccupation(people){
     }
     searchByName(peopleWithSameJob);
   }
-}  
+
+
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -325,12 +339,10 @@ function displayPerson(person){
 }
 
 // function that prompts and validates user input
-<<<<<<< HEAD
-function promptFor(question, valid){
+
   
-=======
-function promptFor(question, valid){``
->>>>>>> e895ea50c8ca309023459f7a337ba96faa5e16c9
+
+function promptFor(question, valid){
   do{
      var response = prompt(question).trim();
   } while(!response || !valid(response));
@@ -346,3 +358,27 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+function searchByDob(people)
+{ 
+   let searchDob = prompt("What is the 'D/O/B' you are searching for ");
+   
+  let personSearchWithDob = people.filter(function(person){
+    if(person.dob === searchDob)
+    {
+      return true;
+    }
+    else
+    {
+       return false;
+    }
+   })
+     let samedobPeople = "";
+     for (let counter = 0; counter < personSearchWithDob.length; counter++) {
+           samedobPeople += personSearchWithDob[counter].firstName + " " + personSearchWithDob[counter].lastName + "\n";
+        }
+    alert(samedobPeople);
+    //displayPerson(person); 
+  
+}
+
+
