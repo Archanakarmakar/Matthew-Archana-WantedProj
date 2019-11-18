@@ -53,36 +53,51 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
+
       let everyoneInFamily = people.filter(function(el){
         if(el.id === person.currentSpouse || person.parents.length == 0 || el.id === person.parents[0] ||el.id === person.parents[1] ||el.parents[0] === person.parents[0] ||el.parents[1] === person.parents[1]){
         return true;
         }    
             
         else{
+
+    let everyoneInFamily = people.filter(function(el){
+      if(el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1] || el.parents[0] === person.parents[0] || el.parents[1] === person.parents[1] ){
+        return true;
+      }
+      else{
+
+          return false;
+      } 
+      })
+    let bigOleFamily = "";
+      for (let counter = 0; counter < everyoneInFamily.length; counter++) {
+        if (person.parents.length == 0 ){
+            }
+           
+         else if (person.parents.length > 0 ){ 
+          bigOleFamily += person[counter].firstName + " " + person[counter].lastName + "\n";
+          bigOleFamily -= person.currentSpouse
+        }
+      }
+       if (bigOleFamily.length == 0 ) {
+        bigOleFamily = "This person has no parents";
+      }
+      let currentSpouseOfPerson = people.filter(function(relation){
+        if(relation.id === person.currentSpouse){
+
+          return true;
+          }
+        else{
           return false;
           } 
       })
-      let bigOleFamily = "";
-      for (let counter = 0; counter < everyoneInFamily.length; counter++) {
-           bigOleFamily += everyoneInFamily[counter].firstName + " " + everyoneInFamily[counter].lastName + "\n";
-        }
-       alert(bigOleFamily);
-    
+    alert( bigOleFamily + "\n" + currentSpouseOfPerson[0].firstName + currentSpouseOfPerson[0].lastName )
     break;
     case "descendants":
-    let allDecendents = people.filter(function(el){
-        if(person.id === el.parents[0] || el.id === person.parents[1] ){
-          return true;
-          }
-          else{
-          return false;
-          }
-        }) 
-           let allOfPersonsDecendants = "";
-      for (let counter = 0; counter < allDecendents.length; counter++) {
-           allOfPersonsDecendants += allDecendents[counter].firstName + " " + allDecendents[counter].lastName + "\n";
-        }
-        alert(allOfPersonsDecendants);
+      findDecendents(people, person);
+      displayPeople(people);
+  // FIND GRANDF CHILD  
     break;
     case "restart":
     app(people); // restart
@@ -125,7 +140,7 @@ function searchByEyeColor(people){
         break;
         default:
           alert("Invalid input try again.");
-          
+          searchByEyeColor(people);
       
      
         break;
@@ -141,12 +156,8 @@ function searchByEyeColor(people){
       return false;
     }
   })
-    let sameEyedPeople = "";
-      for (let counter = 0; counter < everyOneWithTraitEye.length; counter++) {
-           sameEyedPeople += everyOneWithTraitEye[counter].firstName + " " + everyOneWithTraitEye[counter].lastName + "\n";
-        }
-    alert(sameEyedPeople);
-    searchByGender(sameEyedPeople); 
+    displayPeople(everyOneWithTraitEye)
+    searchByGender(everyOneWithTraitEye); 
   
 }
 
@@ -163,6 +174,11 @@ function searchByGender(people){
           break;
           default:
             alert("Invalid input try again.");
+
+            searchByGender(people);
+        
+       
+
           break;
       }
 
@@ -176,6 +192,7 @@ function searchByGender(people){
         return false;
       }
     })
+
       let sameGenderPeople = "";
         for (let counter = 0; counter < everyOneWithGender.length; counter++) {
              sameGenderPeople += everyOneWithGender[counter].firstName + " " + everyOneWithGender[counter].lastName + "\n";
@@ -183,6 +200,10 @@ function searchByGender(people){
       alert(sameGenderPeople);
       searchByWeight(sameGenderPeople); 
    }
+
+    displayPeople(everyOneWithGender)
+    searchByWeight(everyOneWithGender); 
+}
 
 function searchByWeight(people){
   let traitQuestion = promptFor("Do you want to search for Weight? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -197,8 +218,15 @@ function searchByWeight(people){
           break;
           default:
             alert("Invalid input try again.");
+
             
            break;
+
+            searchByWeight(people);
+        
+       
+          break;
+
       }
 
     let weight = promptFor("What weight are you looking for?", chars);
@@ -211,26 +239,27 @@ function searchByWeight(people){
         return false;
       }
     })
-      let sameWeightPeople = "";
-        for (let counter = 0; counter < everyOneWithSameWeight.length; counter++) {
-             sameWeightPeople += everyOneWithSameWeight[counter].firstName + " " + everyOneWithSameWeight[counter].lastName + "\n";
-          }
-      alert(sameWeightPeople);
-      // searchByHeight(sameWeightPeople);
+   displayPeople(everyOneWithSameWeight);
+   searchByHeight(everyOneWithSameWeight);
 }
 function searchByHeight(people){
   let traitQuestion = promptFor("Do you want to search for Height? 'yes' 'no' ", yesNo).toLowerCase(); 
   
     switch(traitQuestion){
-    case 'yes':       
+      case 'yes':       
         alert("Okay");    
       break;
-        case 'no':
-          alert("Okay");
-          searchByOccupation(people);
+      case 'no':
+        alert("Okay");
+        searchByOccupation(people);
       break;
       default:
         alert("Invalid input try again.");
+ 
+       break;
+
+        searchByHeight(people); 
+          
        break;
     }
 
@@ -243,12 +272,9 @@ let everyOneWithSameHeight = people.filter(function(person){
     return false;
     }
   })
-  let sameHeightPeople = "";
-  for (let counter = 0; counter < everyOneWithSameHeight.length; counter++) {
-       sameHeightPeople += everyOneWithSameHeight[counter].firstName + " " + everyOneWithSameHeight[counter].lastName + "\n";
-    }
-  alert(sameHeightPeople);
-  // searchByOccupation(sameHeightPeople);
+  
+  displayPeople(everyOneWithSameHeight);
+  searchByOccupation(everyOneWithSameWeight);
 }
 function searchByOccupation(people){
   let traitQuestion = promptFor("Do you want to search for Occupation? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -270,7 +296,8 @@ function searchByOccupation(people){
                   app();
                 break;
                 default:
-                  alert("Invalid input try again.");         
+                  alert("Invalid input try again.");  
+                  searchByOccupation(people)       
                 break;
             }
       break;
@@ -295,23 +322,35 @@ function searchByOccupation(people){
   let traitQuestionNum2 = promptFor("Do you want to search for one of these people by name? 'yes' 'no' ('no' will restart) ", yesNo).toLowerCase(); 
   
     switch(traitQuestionNum2){
-    case 'yes':       
+      case 'yes':       
         alert("Okay");
           
       break;
-        case 'no':
+      case 'no':
           alert("Okay Restarting");
           app();
       break;
       default:
+ 
           alert("Invalid input try again.");
         
+
+        alert("Invalid input try again taking you back to look for your occupation.");
+        searchByOccupation(people);
+    
+   
+
       break;
     }
     searchByName(peopleWithSameJob);
   }
 
 
+
+
+
+  searchByName(everyOneWithOccupation);
+}
 
 // alerts a list of people
 function displayPeople(people){
@@ -358,6 +397,7 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
 function searchByDob(people)
 { 
    let searchDob = prompt("What is the 'D/O/B' you are searching for ");
@@ -381,4 +421,21 @@ function searchByDob(people)
   
 }
 
+
+
+
+function findDecendents(people, person){
+  let allDecendents = people.filter(function(descendant){
+        if(person.id === descendant.parents[0] || descendant.id === descendant.parents[1] ){
+          return true;
+          }
+          else{
+          return false;
+          }
+        });
+  displayPeople(allDecendents)
+  for (let counter = 0; counter < allDecendents.length; counter++){
+     findDecendents(people , allDecendents[counter]);
+  }
+}
 
