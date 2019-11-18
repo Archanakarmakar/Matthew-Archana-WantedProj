@@ -58,45 +58,36 @@ function mainMenu(person, people){
         if(el.id === person.currentSpouse || person.parents.length == 0 || el.id === person.parents[0] ||el.id === person.parents[1] ||el.parents[0] === person.parents[0] ||el.parents[1] === person.parents[1]){
         return true;
         }    
-            
-        else{
-
-    let everyoneInFamily = people.filter(function(el){
-      if(el.id === person.currentSpouse || el.id === person.parents[0] || el.id === person.parents[1] || el.parents[0] === person.parents[0] || el.parents[1] === person.parents[1] ){
-        return true;
-      }
-      else{
-
+        else{ 
           return false;
-      } 
-      })
-    let bigOleFamily = "";
-      for (let counter = 0; counter < everyoneInFamily.length; counter++) {
-        if (person.parents.length == 0 ){
-            }
-           
-         else if (person.parents.length > 0 ){ 
-          bigOleFamily += person[counter].firstName + " " + person[counter].lastName + "\n";
-          bigOleFamily -= person.currentSpouse
         }
-      }
-       if (bigOleFamily.length == 0 ) {
+        })
+          let bigOleFamily = "";
+            for (let counter = 0; counter < everyoneInFamily.length; counter++) {
+              if (person.parents.length == 0 ){
+              }
+              else if (person.parents.length > 0 ){
+                bigOleFamily += person[counter].firstName + " " + person[counter].lastName + "\n";
+                bigOleFamily -= person.currentSpouse
+              }
+            }
+        if (bigOleFamily.length == 0 ) {
         bigOleFamily = "This person has no parents";
-      }
-      let currentSpouseOfPerson = people.filter(function(relation){
+        } 
+         let currentSpouseOfPerson = people.filter(function(relation){
         if(relation.id === person.currentSpouse){
-
           return true;
           }
         else{
           return false;
           } 
       })
-    alert( bigOleFamily + "\n" + currentSpouseOfPerson[0].firstName + currentSpouseOfPerson[0].lastName )
-    break;
+    alert( bigOleFamily + "\n" + currentSpouseOfPerson[0].firstName + currentSpouseOfPerson[0].lastName );
+    
+     break;
     case "descendants":
       findDecendents(people, person);
-      displayPeople(people);
+      //displayPeople(people);
   // FIND GRANDF CHILD  
     break;
     case "restart":
@@ -174,36 +165,29 @@ function searchByGender(people){
           break;
           default:
             alert("Invalid input try again.");
-
             searchByGender(people);
-        
-       
-
-          break;
-      }
+            break;
+         }
 
     let gender = promptFor("What gender are you looking for?", chars).toLowerCase();
     let everyOneWithGender = people.filter(function(person){
-      if(person.gender === gender){
+      if(person.gender === gender)
+      {
         return true;
-      }
-      else{
-
-        return false;
-      }
+       }
+      else
+      {
+       return false;
+       }
     })
 
-      let sameGenderPeople = "";
+    let sameGenderPeople = "";
         for (let counter = 0; counter < everyOneWithGender.length; counter++) {
              sameGenderPeople += everyOneWithGender[counter].firstName + " " + everyOneWithGender[counter].lastName + "\n";
           }
       alert(sameGenderPeople);
       searchByWeight(sameGenderPeople); 
    }
-
-    displayPeople(everyOneWithGender)
-    searchByWeight(everyOneWithGender); 
-}
 
 function searchByWeight(people){
   let traitQuestion = promptFor("Do you want to search for Weight? 'yes' 'no' ", yesNo).toLowerCase(); 
@@ -218,16 +202,12 @@ function searchByWeight(people){
           break;
           default:
             alert("Invalid input try again.");
-
-            
+                    
            break;
-
             searchByWeight(people);
-        
-       
+               
           break;
-
-      }
+        }
 
     let weight = promptFor("What weight are you looking for?", chars);
     let everyOneWithSameWeight = people.filter(function(person){
@@ -337,19 +317,10 @@ function searchByOccupation(people){
 
         alert("Invalid input try again taking you back to look for your occupation.");
         searchByOccupation(people);
-    
-   
-
       break;
     }
     searchByName(peopleWithSameJob);
-  }
-
-
-
-
-
-  searchByName(everyOneWithOccupation);
+    searchByName(everyOneWithOccupation);
 }
 
 // alerts a list of people
@@ -416,13 +387,11 @@ function searchByDob(people)
      for (let counter = 0; counter < personSearchWithDob.length; counter++) {
            samedobPeople += personSearchWithDob[counter].firstName + " " + personSearchWithDob[counter].lastName + "\n";
         }
-    alert(samedobPeople);
+   
+   alert(samedobPeople);
     //displayPerson(person); 
   
 }
-
-
-
 
 function findDecendents(people, person){
   let allDecendents = people.filter(function(descendant){
@@ -432,7 +401,7 @@ function findDecendents(people, person){
           else{
           return false;
           }
-        });
+        })
   displayPeople(allDecendents)
   for (let counter = 0; counter < allDecendents.length; counter++){
      findDecendents(people , allDecendents[counter]);
